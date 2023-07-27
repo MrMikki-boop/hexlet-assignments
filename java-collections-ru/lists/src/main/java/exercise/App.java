@@ -5,32 +5,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 // BEGIN
-public class App {
-    public static void main(String[] args) {
-        // Пример использования метода scrabble()
-        String availableChars = "abcdefg";
-        String wordToCheck = "face";
-        System.out.println(scrabble(availableChars, wordToCheck)); // Выведет true
-    }
+class App {
+    public static boolean scrabble(String symbols, String word) {
 
-    public static boolean scrabble(String availableChars, String word) {
-        // Преобразовать оба входных аргумента в нижний регистр
-        availableChars = availableChars.toLowerCase();
-        word = word.toLowerCase();
+        int length = word.length();
+        String[] letters = symbols.split("");
+        List coll = new ArrayList(Arrays.asList(letters));
 
-        // Преобразовать набор символов в список для удобства манипуляций
-        List<Character> charsList = new ArrayList<>();
-        for (char c : availableChars.toCharArray()) {
-            charsList.add(c);
-        }
+        for (int i = 0; i < length; i++) {
+            String current = word.substring(i, i + 1).toLowerCase();
 
-        // Проверить наличие каждого символа из слова в списке символов
-        for (char c : word.toCharArray()) {
-            if (!charsList.contains(c)) {
+            if (!coll.contains(current)) {
                 return false;
             }
-            // Если символ найден, удалить его из списка, чтобы избежать повторного использования
-            charsList.remove(Character.valueOf(c));
+
+            coll.remove(current);
         }
 
         return true;
