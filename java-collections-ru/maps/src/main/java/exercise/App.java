@@ -1,17 +1,19 @@
-lspackage exercise;
+package exercise;
 
 import java.util.HashMap;
 import java.util.Map;
 
 // BEGIN
 public class App {
+
     public static Map<String, Integer> getWordCount(String sentence) {
         Map<String, Integer> wordCountMap = new HashMap<>();
 
-        // Разделяем предложение на слова по пробелам
-        String[] words = sentence.split("\\s+");
+        if (sentence == null || sentence.trim().isEmpty()) {
+            return wordCountMap;
+        }
 
-        // Подсчитываем количество каждого слова
+        String[] words = sentence.split(" ");
         for (String word : words) {
             wordCountMap.put(word, wordCountMap.getOrDefault(word, 0) + 1);
         }
@@ -20,23 +22,18 @@ public class App {
     }
 
     public static String toString(Map<String, Integer> wordCountMap) {
-        StringBuilder sb = new StringBuilder("{\n");
-        for (Map.Entry<String, Integer> entry : wordCountMap.entrySet()) {
-            sb.append("  ").append(entry.getKey()).append("=").append(entry.getValue()).append(",\n");
-        }
-        // Удаляем запятую после последней пары ключ-значение
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
         if (!wordCountMap.isEmpty()) {
-            sb.setLength(sb.length() - 2);
+            sb.append("\n");
+            for (Map.Entry<String, Integer> entry : wordCountMap.entrySet()) {
+                String word = entry.getKey();
+                int count = entry.getValue();
+                sb.append("  ").append(word).append(": ").append(count).append("\n");
+            }
         }
-        sb.append("\n}");
-
+        sb.append("}");
         return sb.toString();
-    }
-
-    public static void main(String[] args) {
-        String sentence = "java is the best programming language java";
-        Map<String, Integer> wordsCount = App.getWordCount(sentence);
-        System.out.println(App.toString(wordsCount));
     }
 }
 //END
