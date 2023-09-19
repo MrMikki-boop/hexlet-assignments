@@ -1,34 +1,30 @@
 package exercise;
 
 // BEGIN
-import java.util.Map;
-import java.util.HashMap;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import java.nio.file.Paths;
-import java.nio.file.Path;
 import java.nio.file.Files;
-import java.nio.file.StandardOpenOption;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Map;
 
 public class FileKV implements KeyValueStorage {
+    private Path filePath;
     private Map<String, String> data;
-    private String filePath;
 
     public FileKV(String filePath, Map<String, String> initialData) {
-        this.data = new HashMap<>(initialData);
-        this.filePath = filePath;
-        loadFromFile();
+        this.filePath = Paths.get(filePath).toAbsolutePath().normalize();
+        this.data = initialData;
     }
 
     @Override
     public void set(String key, String value) {
         data.put(key, value);
-        saveToFile();
+        saveDataToFile();
     }
 
     @Override
     public void unset(String key) {
         data.remove(key);
-        saveToFile();
+        saveDataToFile();
     }
 
     @Override
@@ -38,19 +34,12 @@ public class FileKV implements KeyValueStorage {
 
     @Override
     public Map<String, String> toMap() {
-        return new HashMap<>(data);
+        return data;
     }
 
-    private void loadFromFile() {
-        String fileContent = Utils.readFile(filePath);
-        if (!fileContent.isEmpty()) {
-            data = Utils.unserialize(fileContent);
-        }
-    }
-
-    private void saveToFile() {
-        String serializedData = Utils.serialize(data);
-        Utils.writeFile(filePath, serializedData);
+    private void saveDataToFile() {
+        String jsonData = Utils.serialize(data);
+        Utils.writeFile(filePath.toString(), jsonData);
     }
 }
 // END

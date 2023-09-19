@@ -7,19 +7,20 @@ import java.util.Set;
 // BEGIN
 public class App {
     public static void swapKeyValue(KeyValueStorage storage) {
+        // Создаем временное in-memory хранилище
         KeyValueStorage tempStorage = new InMemoryKV(storage.toMap());
 
-        for (String key : storage.toMap().keySet()) {
-            String value = storage.get(key, "");
-            tempStorage.set(value, key);
+        // Получаем набор записей (пар ключ-значение) из исходного хранилища
+        Set<Map.Entry<String, String>> entries = tempStorage.toMap().entrySet();
+
+        // Очищаем исходное хранилище
+        for (Map.Entry<String, String> entry : entries) {
+            storage.unset(entry.getKey());
         }
 
-        storage.unset("");
-        storage.unsetAll();
-
-        for (String key : tempStorage.toMap().keySet()) {
-            String value = tempStorage.get(key, "");
-            storage.set(key, value);
+        // Переставляем ключи и значения исходного хранилища
+        for (Map.Entry<String, String> entry : entries) {
+            storage.set(entry.getValue(), entry.getKey());
         }
     }
 }
