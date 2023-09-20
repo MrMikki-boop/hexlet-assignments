@@ -1,8 +1,6 @@
 package exercise;
 
 // BEGIN
-package exercise;
-
 public class App {
     public static void printSquare(Circle circle) {
         try {
