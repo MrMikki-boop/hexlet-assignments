@@ -36,7 +36,6 @@ class FileKVTest {
 
         // Проверяем, что данные внутри storage корректно обновлены
         assertThat(storage.get("key", "default")).isEqualTo("value");
-        Map<String, String> data = storage.toMap();
-        assertThat(data).isEqualTo(Map.of("key", "value"));
+        assertThat(storage.toMap()).isEqualTo(Map.of("key", "value"));
     }
 }
