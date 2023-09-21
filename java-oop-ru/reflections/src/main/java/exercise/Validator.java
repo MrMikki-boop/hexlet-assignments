@@ -64,7 +64,8 @@ public class Validator {
                         field.setAccessible(true);
                         Object value = field.get(obj);
                         if (value == null) {
-                            notValidFields.computeIfAbsent(field.getName(), k -> new ArrayList<>()).add("can not be null");
+                            notValidFields.computeIfAbsent(field.getName(),
+                                    k -> new ArrayList<>()).add("can not be null");
                         }
                     } catch (IllegalAccessException e) {
                         e.printStackTrace();
@@ -78,7 +79,8 @@ public class Validator {
                             String stringValue = (String) value;
                             int minLength = minLengthAnnotation.minLength();
                             if (stringValue.length() < minLength) {
-                                notValidFields.computeIfAbsent(field.getName(), k -> new ArrayList<>()).add("length less than " + minLength);
+                                notValidFields.computeIfAbsent(field.getName(),
+                                        k -> new ArrayList<>()).add("length less than " + minLength);
                             }
                         }
                     } catch (IllegalAccessException e) {
