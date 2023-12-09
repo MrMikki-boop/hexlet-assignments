@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 // BEGIN
-
+import io.javalin.http.NotFoundResponse;
 // END
 
 public final class App {
@@ -25,7 +25,7 @@ public final class App {
             if (company != null) {
                 ctx.json(company);
             } else {
-                ctx.status(404).result("Company not found");
+                throw new NotFoundResponse("Company not found");
             }
         });
         // END
