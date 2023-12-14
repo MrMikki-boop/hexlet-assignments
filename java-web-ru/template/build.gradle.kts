@@ -25,8 +25,8 @@ dependencies {
     implementation("io.javalin:javalin:6.0.0-beta.3")
 
     // BEGIN
-    implementation("gg.jte:jte:3.1.6")
-    implementation("gg.jte:jte-html:0.7.2")
+    implementation("gg.jte:jte:3.0.1")
+    implementation("io.javalin:javalin-rendering:5.6.2")
     // END
 
     implementation("io.javalin:javalin-bundle:6.0.0-beta.3")

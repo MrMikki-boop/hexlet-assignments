@@ -7,8 +7,6 @@ import exercise.model.User;
 import exercise.dto.users.UserPage;
 import exercise.dto.users.UsersPage;
 import java.util.Collections;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 public final class App {
 
@@ -22,29 +20,19 @@ public final class App {
         });
 
         // BEGIN
-        app.get("/", ctx -> {
-            UsersPage usersPage = new UsersPage(USERS.stream()
-                    .map(UserPage::new)
-                    .collect(Collectors.toList()));
-            ctx.render("users/index.jte", Map.of("usersPage", usersPage));
+        app.get("/users/{id}", ctx -> {
+            long id = ctx.pathParamAsClass("id", Long.class).get();
+            User user = USERS.stream()
+                    .filter(u -> id == u.getId())
+                    .findFirst()
+                    .orElseThrow(() -> new NotFoundResponse("User not found"));
+            UserPage userPage = new UserPage(user);
+            ctx.render("users/show.jte", Collections.singletonMap("userPage", userPage));
         });
 
         app.get("/users", ctx -> {
-            UsersPage usersPage = new UsersPage(USERS.stream()
-                    .map(UserPage::new)
-                    .collect(Collectors.toList()));
-            ctx.render("users/index.jte", Map.of("usersPage", usersPage));
-        });
-
-        app.get("/users/:id", ctx -> {
-            int userId = ctx.pathParam("id", Integer.class).get();
-            User user = USERS.stream()
-                    .filter(u -> u.getId() == userId)
-                    .findFirst()
-                    .orElseThrow(NotFoundResponse::new);
-
-            UserPage userPage = new UserPage(user);
-            ctx.render("users/show.jte", Map.of("userPage", userPage));
+            UsersPage usersPage = new UsersPage(USERS);
+            ctx.render("users/index.jte", Collections.singletonMap("usersPage", usersPage));
         });
         // END
 
