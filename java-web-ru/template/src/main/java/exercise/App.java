@@ -34,6 +34,7 @@ public final class App {
             UsersPage usersPage = new UsersPage(USERS);
             ctx.render("users/index.jte", Collections.singletonMap("usersPage", usersPage));
         });
+
         // END
 
         app.get("/", ctx -> {

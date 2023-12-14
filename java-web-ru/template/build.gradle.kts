@@ -3,11 +3,9 @@ import org.gradle.api.tasks.testing.logging.TestLogEvent
 import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 
 plugins {
-    id("com.github.ben-manes.versions") version "0.50.0"
+    id("com.github.ben-manes.versions") version "0.48.0"
     application
-    id("io.freefair.lombok") version "8.4"
-
-    id("se.patrikerdes.use-latest-versions") version "0.2.18"
+    id("io.freefair.lombok") version "8.1.0"
 }
 
 application {
@@ -22,20 +20,20 @@ repositories {
 }
 
 dependencies {
-    implementation("io.javalin:javalin:6.0.0-beta.3")
+    implementation("io.javalin:javalin:5.6.1")
 
     // BEGIN
     implementation("gg.jte:jte:3.0.1")
     implementation("io.javalin:javalin-rendering:5.6.2")
     // END
 
-    implementation("io.javalin:javalin-bundle:6.0.0-beta.3")
-    implementation("org.slf4j:slf4j-simple:2.0.9")
-    implementation("net.datafaker:datafaker:2.0.2")
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.16.0")
-    testImplementation(platform("org.junit:junit-bom:5.10.1"))
+    implementation("io.javalin:javalin-bundle:5.6.2")
+    implementation("org.slf4j:slf4j-simple:2.0.7")
+    implementation("net.datafaker:datafaker:2.0.1")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.15.0")
+    testImplementation(platform("org.junit:junit-bom:5.9.1"))
     testImplementation("org.junit.jupiter:junit-jupiter")
-    testImplementation("org.assertj:assertj-core:3.24.2")
+    testImplementation("org.assertj:assertj-core:3.23.1")
 }
 
 tasks.test {
