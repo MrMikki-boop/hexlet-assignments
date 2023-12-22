@@ -28,28 +28,17 @@ public final class App {
         });
 
         // BEGIN
+        app.get("/users/build", ctx -> {
+            ctx.render("users/build.jte");
+        });
+
         app.post("/users", ctx -> {
-            // Получение данных из формы
-            String firstName = ctx.formParam("firstName");
-            String lastName = ctx.formParam("lastName");
-            String email = ctx.formParam("email");
-            String password = ctx.formParam("password");
-
-            // Нормализация данных
-            firstName = StringUtils.capitalize(firstName);
-            lastName = StringUtils.capitalize(lastName);
-            email = email.toLowerCase().trim();
-
-            // Шифрование пароля
-            String encryptedPassword = Security.encrypt(password);
-
-            // Создание нового пользователя
-            User newUser = new User(firstName, lastName, email, encryptedPassword);
-
-            // Сохранение пользователя в репозитории
-            UserRepository.save(newUser);
-
-            // Перенаправление на страницу с пользователями
+            var firstName = StringUtils.capitalize(ctx.formParam("firstName"));
+            var lastName = StringUtils.capitalize(ctx.formParam("lastName"));
+            var email = ctx.formParam("email").toLowerCase().trim();
+            var password = Security.encrypt(ctx.formParam("password"));
+            var user = new User(firstName, lastName, email, password);
+            UserRepository.save(user);
             ctx.redirect("/users");
         });
         // END

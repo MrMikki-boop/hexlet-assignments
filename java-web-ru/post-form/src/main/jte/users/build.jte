@@ -1,27 +1,27 @@
-<!-- src/main/jte/users/build.jte -->
-
-@import gg.jte.Content
-@param Content content
-@param Content footer = null
-
-@template.layout.page(
-content = @`
-    <h1>Создание нового пользователя</h1>
-    <form action="/users" method="post">
-        <label for="firstName">Имя:</label>
-        <input type="text" id="firstName" name="firstName" required><br>
-
-        <label for="lastName">Фамилия:</label>
-        <input type="text" id="lastName" name="lastName" required><br>
-
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required><br>
-
-        <label for="password">Пароль:</label>
-        <input type="password" id="password" name="password" required><br>
-
-        <input type="submit" value="Создать">
-    </form>
-`,
-footer = null
-)
+<form action="/users" method="post">
+    <div>
+        <label>
+            Firstname
+            <input type="text" name="firstName" />
+        </label>
+    </div>
+    <div>
+        <label>
+            Lastname
+            <input type="text" name="lastName" />
+        </label>
+    </div>
+    <div>
+        <label>
+            Email
+            <input type="email" required name="email" />
+        </label>
+    </div>
+    <div>
+        <label>
+            Password
+            <input type="password" required name="password" />
+        </label>
+    </div>
+    <input type="submit" value="Send" />
+</form>
