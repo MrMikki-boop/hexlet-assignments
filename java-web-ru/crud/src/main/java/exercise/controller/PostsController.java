@@ -14,7 +14,7 @@ import io.javalin.http.NotFoundResponse;
 public class PostsController {
 
     // BEGIN
-    public static void show (Context ctx) {
+    public static void show(Context ctx) {
         var id = ctx.pathParamAsClass("id", Long.class).get();
         var post = PostRepository.find(id)
                 .orElseThrow(() -> new NotFoundResponse("Page not found"));
@@ -22,7 +22,7 @@ public class PostsController {
         ctx.render("posts/show.jte", Collections.singletonMap("page", page));
     }
 
-    public static void index (Context ctx) {
+    public static void index(Context ctx) {
         var posts = PostRepository.getEntities();
         var page = ctx.queryParamAsClass("page", Integer.class).getOrDefault(1);
         var per = 5;
