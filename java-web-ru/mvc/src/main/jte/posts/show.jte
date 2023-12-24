@@ -13,7 +13,9 @@
                 ${page.getPost().getBody()}
             </div>
             <!-- BEGIN -->
-            
+            <div class="mx-auto p-4 py-md-5">
+                <a href="${NamedRoutes.editPostPath(page.getPost().getId())}">Редактировать пост</a>
+            </div>
             <!-- END -->
         </main>
     `
