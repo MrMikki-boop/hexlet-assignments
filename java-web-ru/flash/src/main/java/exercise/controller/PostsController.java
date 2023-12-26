@@ -8,7 +8,6 @@ import exercise.repository.PostRepository;
 import exercise.dto.posts.BuildPostPage;
 import exercise.util.NamedRoutes;
 import io.javalin.http.Context;
-import io.javalin.validation.ValidationException;
 import io.javalin.http.NotFoundResponse;
 
 public class PostsController {
