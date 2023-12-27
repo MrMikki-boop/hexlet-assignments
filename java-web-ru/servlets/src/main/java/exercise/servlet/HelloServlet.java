@@ -1,4 +1,4 @@
-package io.hexlet.servlet;
+package exercise.servlet;
 
 import java.io.IOException;
 
