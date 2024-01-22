@@ -27,41 +27,39 @@ public class Application {
     }
 
     // BEGIN
-    @GetMapping("/posts") // Список страниц
-    public List<Post> index(@RequestParam(defaultValue = "10") Integer limit) {
-        return posts.stream().limit(limit).toList();
+    @GetMapping("/posts") // Список всех постов
+    public List<Post> getAllPosts() {
+        return posts;
     }
 
-    @GetMapping("/posts/{id}") // Вывод страницы
-    public Optional<Post> show(@PathVariable String id) {
-        var page = posts.stream()
+    @GetMapping("/posts/{id}") // Просмотр конкретного поста
+    public Optional<Post> getPost(@PathVariable String id) {
+        return posts.stream()
                 .filter(p -> p.getId().equals(id))
                 .findFirst();
-        return page;
     }
 
-    @PostMapping("/posts") // Создание страницы
-    public Post create(@RequestBody Post post) {
+    @PostMapping("/posts") // Создание нового поста
+    public Post createPost(@RequestBody Post post) {
         posts.add(post);
         return post;
     }
 
-    @PutMapping("/posts/{id}") // Обновление страницы
-    public Post update(@PathVariable String id, @RequestBody Post data) {
-        var maybePage = posts.stream()
+    @PutMapping("/posts/{id}") // Обновление поста
+    public Post updatePost(@PathVariable String id, @RequestBody Post data) {
+        var maybePost = posts.stream()
                 .filter(p -> p.getId().equals(id))
                 .findFirst();
-        if (maybePage.isPresent()) {
-            var page = maybePage.get();
-            page.setId(data.getId());
-            page.setTitle(data.getTitle());
-            page.setBody(data.getBody());
+        if (maybePost.isPresent()) {
+            var post = maybePost.get();
+            post.setTitle(data.getTitle());
+            post.setBody(data.getBody());
         }
         return data;
     }
 
-    @DeleteMapping("/posts/{id}") // Удаление страницы
-    public void destroy(@PathVariable String id) {
+    @DeleteMapping("/posts/{id}") // Удаление поста
+    public void deletePost(@PathVariable String id) {
         posts.removeIf(p -> p.getId().equals(id));
     }
     // END
