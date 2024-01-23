@@ -2,6 +2,7 @@ package exercise;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -22,11 +23,14 @@ public class Application {
 
     // BEGIN
     @Autowired
-    private UserProperties userProperties;
-
+    private UserProperties admins;
     @GetMapping("/admins")
     public List<String> getAdmins() {
-        return userProperties.getAdmins();
+        return users.stream()
+                .filter(user -> admins.getAdmins().stream()
+                        .anyMatch(email -> email.equals(user.getEmail())))
+                .map(User::getName)
+                .collect(Collectors.toList());
     }
     // END
 
