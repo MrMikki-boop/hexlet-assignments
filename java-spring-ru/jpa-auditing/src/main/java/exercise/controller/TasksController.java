@@ -49,7 +49,7 @@ public class TasksController {
     @PutMapping("/{id}")
     public Task update(@PathVariable long id, @RequestBody Task task) {
         var task1 = taskRepository.findById(id)
-                .orElseThrow(()->new ResourceNotFoundException("Task with id " + id + " not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Task with id " + id + " not found"));
         task1.setTitle(task.getTitle());
         task1.setDescription(task.getDescription());
         taskRepository.save(task1);
