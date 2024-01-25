@@ -1,4 +1,5 @@
 package exercise.daytime;
+
 import jakarta.annotation.PostConstruct;
 
 public class Night implements Daytime {
