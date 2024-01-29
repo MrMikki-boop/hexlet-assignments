@@ -46,7 +46,7 @@ public class TasksController {
 
     @GetMapping(path = "/{id}")
     public TaskDTO show(@PathVariable("id") long id) {
-        var task =  taskRepository.findById(id)
+        var task = taskRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Task with id " + id + " not found"));
         var taskDTO = taskMapper.map(task);
         return taskDTO;
@@ -68,7 +68,7 @@ public class TasksController {
         taskMapper.update(taskUpdateDTO, task);
 
         var assignee = userRepository.findById(taskUpdateDTO.getAssigneeId())
-                .orElseThrow(()->new ResourceNotFoundException("User with id " + id + " not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("User with id " + id + " not found"));
         assignee.addTask(task);
         taskRepository.save(task);
         userRepository.save(assignee);
